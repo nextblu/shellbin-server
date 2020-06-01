@@ -6,7 +6,8 @@
 
 import gzip
 import json
-import string, random
+import random
+import string
 
 from flask import request
 from flask_restful import Resource, original_flask_make_response
@@ -20,7 +21,7 @@ class BinResource(Resource):
         data = Bin().get_bin(slug)
         response_payload = {"success": True, "resource": data}
         # gzipping the data
-        content = gzip.compress(json.dumps(response_payload).encode('utf-8'), 9)
+        content = gzip.compress(json.dumps(response_payload, indent=4, sort_keys=True, default=str).encode('utf-8'), 9)
         response = original_flask_make_response(content)
         response.headers['Content-Encoding'] = 'gzip'
         return response
