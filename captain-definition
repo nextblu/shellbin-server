@@ -1,0 +1,19 @@
+{
+	"schemaVersion" :2 ,
+	"dockerfileLines" :[
+		"FROM python:3.8.2",
+		"COPY . /app",
+		"WORKDIR /app",
+		"RUN ls -a",
+		"RUN apt-get update -y",
+        "RUN apt-get upgrade -y",
+		"RUN apt-get -y install gcc mono-mcs -y",
+        "RUN apt-get install python3-dev default-libmysqlclient-dev -y",
+        "RUN apt-get install libev-dev -y",
+        "RUN apt-get install moreutils -y",
+        "RUN rm -rf /var/lib/apt/lists/*",
+		"RUN pip3 install -r requirements.txt",
+		"CMD [ \"python3\", \"app.py\" ]",
+		"EXPOSE 3000 3000"
+	]
+}
