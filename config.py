@@ -1,6 +1,6 @@
 class DatabaseConfig:
     # HOST = "srv-captain--tentalog-db"
-    HOST = "shellbin-db.nextblu.com:3307"
+    HOST = "srv-captain--shellbin-db"
     USER = "root"
     PASSWORD = "root"
     DB_NAME = "shellbin"
