@@ -17,7 +17,7 @@ from modules.bin import Bin
 class BinResource(Resource):
 
     def get(self, slug):
-        data = Bin().get_bin(int(slug))
+        data = Bin().get_bin(slug)
         response_payload = {"success": True, "resource": data}
         # gzipping the data
         content = gzip.compress(json.dumps(response_payload).encode('utf-8'), 9)
