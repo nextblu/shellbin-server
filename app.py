@@ -12,7 +12,6 @@ from flask_restful import Api
 
 from resources.BinResources import BinResource
 
-
 __author__ = "@NextBlu core team"
 
 app = Flask(__name__)
@@ -20,7 +19,7 @@ api = Api(app)
 
 # @todo: Move me to routes_configuration.py
 log_routes = [
-    "/api/v1/bin/<str:slug>",
+    "/api/v1/bin/<string:slug>",
     "/api/v1/bin/new"
 ]
 
