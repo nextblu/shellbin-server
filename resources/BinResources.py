@@ -30,4 +30,4 @@ class BinResource(Resource):
         # generating a random string
         slug = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Bin().insert_bin(data, url=slug)
-        return {"success": True}
+        return slug
