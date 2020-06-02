@@ -17,6 +17,17 @@ __author__ = "@NextBlu core team"
 app = Flask(__name__)
 api = Api(app)
 
+
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add(
+        "Access-Control-Allow-Headers", "Content-Type, Authorization"
+    )
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
+    return response
+
+
 # @todo: Move me to routes_configuration.py
 log_routes = [
     "/api/v1/bin/<string:slug>",
