@@ -12,7 +12,7 @@ class Bin:
         cursor.execute(
             query,
             (
-                str(payload),
+                payload,
                 str(url)
             ),
         )
