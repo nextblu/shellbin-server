@@ -12,8 +12,9 @@ class Database:
         self.__user = DatabaseConfig.USER
         self.__password = DatabaseConfig.PASSWORD
         self.__database = DatabaseConfig.DB_NAME
+        self.__charset = 'utf8'
         self.__connection = MySQLdb.connect(
-            self.__host, self.__user, self.__password, self.__database
+            self.__host, self.__user, self.__password, self.__database, charset=self.__charset
         )
         self.__cursor = None
 
