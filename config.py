@@ -1,5 +1,5 @@
 class DatabaseConfig:
-    HOST = "shellbin-db.nextblu.com"
+    HOST = "srv-captain--shellbin-store-db"
     USER = "root"
     PASSWORD = "root"
     DB_NAME = "shellbin"
