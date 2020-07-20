@@ -6,6 +6,7 @@ class Bin:
         self.__db = Database()
 
     def insert_bin(self, payload, url):
+        print(payload)
         cursor = self.__db.get_cursor()
         query = """INSERT INTO bin(`data`,url)
                         VALUES (%s,%s) """
@@ -33,6 +34,7 @@ class Bin:
         cursor.execute(query, (url,))
         result = list(cursor.fetchall())
         logs_list = []
+        print(result)
         if len(result) >= 1:
             for data in result:
                 log_data = {
