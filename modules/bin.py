@@ -12,7 +12,7 @@ class Bin:
         cursor.execute(
             query,
             (
-                str(payload),
+                str(payload).encode(encoding='utf_8', errors='replace'),
                 str(url)
             ),
         )
