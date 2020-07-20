@@ -11,13 +11,15 @@ import string
 
 from flask import request
 from flask_restful import Resource, original_flask_make_response
-
+from tentalog import Tentacle
 from modules.bin import Bin
 
+logger = Tentacle().logger
 
 class BinResource(Resource):
 
     def get(self, slug):
+        logger.info(f"Requested Bin with slug {slug}")
         data = Bin().get_bin(slug)
         response_payload = {"success": True, "resource": data}
         # gzipping the data
@@ -28,6 +30,7 @@ class BinResource(Resource):
 
     def post(self):
         data = request.get_json()
+        logger.info(f"Received Bin creation request {data}")
         # generating a random string
         slug = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
         Bin().insert_bin(data, url=slug)

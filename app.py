@@ -11,6 +11,9 @@ from flask import Flask
 from flask_restful import Api
 
 from resources.BinResources import BinResource
+from tentalog import Tentacle
+
+logger = Tentacle().logger
 
 __author__ = "@NextBlu core team"
 
@@ -38,15 +41,17 @@ api.add_resource(BinResource, *log_routes)
 
 if __name__ == '__main__':
     isProduction = False
-
     port = 3000
     host = "0.0.0.0"
 
     try:
         if os.environ['IS_PRODUCTION'] == 'production':
+            logger.info(f"Found IS_PRODUCTION environment variable set, overriding the current mode")
             isProduction = True
     except KeyError:
         isProduction = False
+
+    logger.info(f"Starting server at port {port} with production mode set to {isProduction}")
 
     if isProduction:
         bjoern.run(app, host, port)
