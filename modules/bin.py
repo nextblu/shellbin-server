@@ -37,7 +37,7 @@ class Bin:
             for data in result:
                 log_data = {
                     "id": data[0],
-                    "data": str(data[1]),
+                    "data": data[1],
                     "url": data[2],
                     "created": data[3]
                 }
