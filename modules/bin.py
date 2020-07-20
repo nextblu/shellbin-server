@@ -7,12 +7,12 @@ class Bin:
 
     def insert_bin(self, payload, url):
         cursor = self.__db.get_cursor()
-        query = """INSERT INTO bin(data,url)
+        query = """INSERT INTO bin(`data`,url)
                         VALUES (%s,%s) """
         cursor.execute(
             query,
             (
-                str(payload).encode(encoding='UTF-8', errors='replace'),
+                str(payload),
                 str(url)
             ),
         )
