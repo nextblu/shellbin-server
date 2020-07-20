@@ -42,8 +42,11 @@ if __name__ == '__main__':
     port = 3000
     host = "0.0.0.0"
 
-    if os.environ['IS_PRODUCTION'] == 'production':
-        isProduction = True
+    try:
+        if os.environ['IS_PRODUCTION'] == 'production':
+            isProduction = True
+    except KeyError:
+        isProduction = False
 
     if isProduction:
         bjoern.run(app, host, port)
