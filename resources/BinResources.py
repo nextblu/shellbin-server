@@ -28,7 +28,9 @@ class BinResource(Resource):
 
     def post(self):
         data = request.get_json()
+        # JSON deserialize
+        des_data = json.loads(data)
         # generating a random string
         slug = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        Bin().insert_bin(data, url=slug)
+        Bin().insert_bin(des_data, url=slug)
         return slug
