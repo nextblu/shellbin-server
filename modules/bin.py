@@ -1,6 +1,8 @@
 from modules.database import Database
-import sys
+from tentalog import Tentacle
 
+
+logger = Tentacle().logger
 
 class Bin:
     def __init__(self):
@@ -8,6 +10,7 @@ class Bin:
 
     def insert_bin(self, payload, url):
         cursor = self.__db.get_cursor()
+        logger.debug(f"Inserting new Bind at url {str(url)}")
         query = """INSERT INTO bin(`data`,url)
                         VALUES (%s,%s) """
         cursor.execute(
@@ -24,6 +27,7 @@ class Bin:
     def get_bin(self, url):
         # return the whole list of orders
         cursor = self.__db.get_cursor()
+        logger.debug(f"Retrieving bin for url {url}")
         query = """
                         SELECT
                             *
@@ -35,6 +39,7 @@ class Bin:
         result = list(cursor.fetchall())
         logs_list = []
         if len(result) >= 1:
+            logger.debug(f"Found {len(result)} Bins for url {url}")
             for data in result:
                 log_data = {
                     "id": data[0],

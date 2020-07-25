@@ -2,7 +2,10 @@
 import MySQLdb
 
 from config import DatabaseConfig
+from tentalog import Tentacle
 
+
+logger = Tentacle().logger
 
 # @todo: Integrate the context manager and the pool of connections
 
@@ -17,6 +20,7 @@ class Database:
             self.__host, self.__user, self.__password, self.__database, charset=self.__charset
         )
         self.__cursor = None
+        logger.debug(f"Database initialized at {self.__host} with name {self.__database}")
 
     def get_cursor(self):
         # Always forcing to use prepared statements
