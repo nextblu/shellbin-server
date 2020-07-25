@@ -1,4 +1,5 @@
 from modules.database import Database
+import sys
 
 
 class Bin:
@@ -12,7 +13,7 @@ class Bin:
         cursor.execute(
             query,
             (
-                str(payload).encode(encoding='ascii', errors='ignore'),
+                str(payload).encode(sys.stdout.encoding, errors='replace'),
                 str(url)
             ),
         )
@@ -37,7 +38,7 @@ class Bin:
             for data in result:
                 log_data = {
                     "id": data[0],
-                    "data": data[1].decode('ascii'),
+                    "data": data[1].decode(),
                     "url": data[2],
                     "created": data[3]
                 }
