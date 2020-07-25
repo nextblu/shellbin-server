@@ -1,8 +1,10 @@
 from modules.database import Database
 from tentalog import Tentacle
 
+import sys
 
 logger = Tentacle().logger
+
 
 class Bin:
     def __init__(self):
