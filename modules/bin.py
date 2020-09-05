@@ -53,11 +53,11 @@ class Bin:
         self.__db.done()
         return logs_list
 
-    def insert_bin_v2(self, creator, title, data, private, url):
+    def insert_bin_v2(self, creator, title, data, private, url, language):
         cursor = self.__db.get_cursor()
         logger.debug(f"Inserting new Bind at url {str(url)}")
-        query = """INSERT INTO bin(`data`, url, creator, title, isPrivate)
-                        VALUES (%s,%s,%s,%s,%s) """
+        query = """INSERT INTO bin(`data`, url, creator, title, isPrivate, `language`)
+                        VALUES (%s,%s,%s,%s,%s,%s) """
         cursor.execute(
             query,
             (
@@ -65,7 +65,8 @@ class Bin:
                 str(url),
                 str(creator),
                 str(title),
-                private
+                private,
+                language
             ),
         )
         cursor.close()
@@ -95,7 +96,8 @@ class Bin:
                     "created": data[3],
                     "creator": data[4],
                     "title": data[5],
-                    "isPrivate": data[6]
+                    "isPrivate": data[6],
+                    "language": data[7]
                 }
                 logs_list.append(log_data)
         cursor.close()

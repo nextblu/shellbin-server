@@ -23,9 +23,9 @@ logger = Tentacle().logger
 
 class BinV2Resource(Resource):
     @use_kwargs(RequestSchema.BinV2POST)
-    def post(self, creator, title, data, private):
+    def post(self, creator, title, data, private, language):
         slug = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        Bin().insert_bin_v2(creator, title, data, private, url=slug)
+        Bin().insert_bin_v2(creator, title, data, private, url=slug, language)
         return slug
 
     @use_kwargs(RequestSchema.BinV2GET)

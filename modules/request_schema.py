@@ -18,7 +18,8 @@ class RequestSchema:
             required=True, validate=validate.Regexp("([0-9a-zA-Z .@_-]){1,60}")
         ),
         "data": fields.Str(required=True),
-        "private": fields.Bool(required=True)
+        "private": fields.Bool(required=True),
+        "language": fields.Str(required=True)
     }
     BinV2GET = {
         "slug": fields.Str(
