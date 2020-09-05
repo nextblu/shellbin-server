@@ -66,7 +66,7 @@ class Bin:
                 str(creator),
                 str(title),
                 private,
-                language
+                str(language)
             ),
         )
         cursor.close()
