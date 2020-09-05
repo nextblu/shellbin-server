@@ -20,7 +20,7 @@ class BinResource(Resource):
 
     def get(self, slug):
         logger.info(f"Requested Bin with slug {slug}")
-        data = Bin().get_bin(slug)
+        data = Bin().get_bin_legacy(slug)
         response_payload = {"success": True, "resource": data}
         # gzipping the data
         content = gzip.compress(json.dumps(response_payload, indent=4, sort_keys=True, default=str).encode('utf-8'), 9)
@@ -33,5 +33,5 @@ class BinResource(Resource):
         logger.info(f"Received Bin creation request {data}")
         # generating a random string
         slug = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        Bin().insert_bin(data, url=slug)
+        Bin().insert_bin_legacy(data, url=slug)
         return slug

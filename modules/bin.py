@@ -10,7 +10,7 @@ class Bin:
     def __init__(self):
         self.__db = Database()
 
-    def insert_bin(self, payload, url):
+    def insert_bin_legacy(self, payload, url):
         cursor = self.__db.get_cursor()
         logger.debug(f"Inserting new Bind at url {str(url)}")
         query = """INSERT INTO bin(`data`,url)
@@ -26,7 +26,7 @@ class Bin:
         self.__db.done()
         return True
 
-    def get_bin(self, url):
+    def get_bin_legacy(self, url):
         # return the whole list of orders
         cursor = self.__db.get_cursor()
         logger.debug(f"Retrieving bin for url {url}")

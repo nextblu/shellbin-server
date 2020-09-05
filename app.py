@@ -31,13 +31,17 @@ def after_request(response):
     return response
 
 
-# @todo: Move me to routes_configuration.py
+# Legacy version
 log_routes = [
     "/api/v1/bin/<string:slug>",
     "/api/v1/bin/new"
 ]
 
 api.add_resource(BinResource, *log_routes)
+
+# New version
+
+
 
 if __name__ == '__main__':
     isProduction = False
