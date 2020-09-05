@@ -31,7 +31,7 @@ class BinV2Resource(Resource):
     @use_kwargs(RequestSchema.BinV2GET)
     def get(self, slug):
         logger.info(f"Requested Bin with slug {slug}")
-        data = Bin().get_bin_legacy(slug)
+        data = Bin().get_bin_v2(slug)
         response_payload = {"success": True, "resource": data}
         # gzipping the data
         content = gzip.compress(json.dumps(response_payload, indent=4, sort_keys=True, default=str).encode('utf-8'), 9)
