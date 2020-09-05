@@ -11,6 +11,7 @@ from flask import Flask
 from flask_restful import Api
 
 from resources.BinResources import BinResource
+from resources.BinV2Resource import BinV2Resource
 from tentalog import Tentacle
 
 logger = Tentacle().logger
@@ -39,8 +40,10 @@ log_routes = [
 
 api.add_resource(BinResource, *log_routes)
 
-# New version
+# Bin v2
+api.add_resource(BinV2Resource, "api/v2/bin/")
 
+# Statistics
 
 
 if __name__ == '__main__':
