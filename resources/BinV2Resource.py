@@ -13,7 +13,7 @@ import string
 
 from flask_restful import Resource, original_flask_make_response
 from tentalog import Tentacle
-from webargs.flaskparser import use_kwargs
+from webargs.flaskparser import use_kwargs, use_args
 
 from modules.bin import Bin
 from modules.request_schema import RequestSchema
@@ -28,7 +28,7 @@ class BinV2Resource(Resource):
         Bin().insert_bin_v2(creator, title, data, private, url=slug, language=language)
         return slug
 
-    @use_kwargs(RequestSchema.BinV2GET)
+    @use_args(RequestSchema.BinV2GET, location="query")
     def get(self, slug):
         logger.info(f"Requested Bin with slug {slug}")
         data = Bin().get_bin_v2(slug)
