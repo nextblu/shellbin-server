@@ -29,6 +29,7 @@ class StatsResource(Resource):
         list_of_bin = []
         for day in date_list:
             res = [item for item in database_in_data if item['day'] == str(day)]
+            logger.debug(f"Res item: {res}")
             if res is not None:
                 # Get object data
                 try:
