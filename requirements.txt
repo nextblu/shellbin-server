@@ -1,8 +1,10 @@
-mysqlclient
+mysqlclient~=1.4.6
 Flask == 1.1.1
 Flask_Cors == 3.0.8
 Flask_Limiter == 1.2.1
 Flask_RESTful == 0.3.7
-webargs == 5.5.2
+webargs~=6.0.0
 tentalog == 0.2.1
-bjoern
+bjoern~=3.1.0
+python-dateutil~=2.8.1
+pytz~=2019.3

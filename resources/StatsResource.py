@@ -10,6 +10,7 @@ import json
 
 from flask_restful import Resource
 from tentalog import Tentacle
+from modules import datetimeutil
 
 from modules.stats import Stats
 
@@ -32,24 +33,22 @@ class StatsResource(Resource):
                 # Get object data
                 try:
                     list_of_bin.append({
-                        "day": day,
+                        "day": datetimeutil.ISO8601.from_datetime_obj(day),
                         "bins": res[0]['insertions']
                     })
                 except IndexError:
                     list_of_bin.append({
-                        "day": day,
+                        "day": datetimeutil.ISO8601.from_datetime_obj(day),
                         "bins": 0
                     })
             else:
                 list_of_bin.append({
-                    "day": day,
+                    "day": datetimeutil.ISO8601.from_datetime_obj(day),
                     "bins": 0
                 })
-
-        response = json.dumps(list_of_bin, indent=4, sort_keys=False, default=str)
 
         return {
                    "success": True,
                    "lastBin": latest_bin,
-                   "statsPerDay": response
+                   "statsPerDay": list_of_bin
                }, 200
