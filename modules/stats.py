@@ -1,4 +1,5 @@
 from modules.database import Database
+from modules import datetimeutil
 from tentalog import Tentacle
 
 import sys
@@ -51,7 +52,7 @@ class Stats:
         result = list(cursor.fetchall())
         if len(result) >= 1:
             logger.debug(f"Found latest insertion date")
-            lastInsertTime = result[0][0]
+            lastInsertTime = datetimeutil.ISO8601.from_datetime_obj(result[0][0])
             cursor.close()
             self.__db.done()
             return lastInsertTime
