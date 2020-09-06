@@ -30,6 +30,7 @@ class BinV2Resource(Resource):
 
     @use_args(RequestSchema.BinV2GET, location="query")
     def get(self, slug):
+        slug = slug['slug']
         logger.info(f"Requested Bin with slug {slug}")
         data = Bin().get_bin_v2(slug)
         response_payload = {"success": True, "resource": data}
