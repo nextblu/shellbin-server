@@ -6,6 +6,7 @@
 #   * Written by Mattia Failla <mattia@nextblu.com>, Sept 2020
 #   """
 import datetime
+import json
 
 from flask_restful import Resource
 from tentalog import Tentacle
@@ -45,8 +46,10 @@ class StatsResource(Resource):
                     "bins": 0
                 })
 
+        response = json.dumps(list_of_bin, indent=4, sort_keys=False, default=str)
+
         return {
                    "success": True,
                    "lastBin": latest_bin,
-                   "statsPerDay": list_of_bin
+                   "statsPerDay": response
                }, 200
