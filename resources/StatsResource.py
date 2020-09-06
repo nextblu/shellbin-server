@@ -22,12 +22,6 @@ class StatsResource(Resource):
         database_in_data = Stats().get_bin_per_day()
         latest_bin = Stats().get_last_bin_timestamp()
 
-        time_delta = (datetime.datetime.now() - latest_bin)
-        total_seconds = time_delta.total_seconds()
-        minutes = total_seconds / 60
-
-        latest_bin_minutes = minutes
-
         logger.debug(f"Database data for the last 60 days: {database_in_data}")
 
         # Cleaning days_data
@@ -59,7 +53,6 @@ class StatsResource(Resource):
 
         return {
                    "success": True,
-                   "lastBin": latest_bin,
-                   "lastBinMinutes": latest_bin_minutes,
+                   "latestBin": latest_bin,
                    "statsPerDay": list_of_bin
                }, 200
