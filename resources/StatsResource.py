@@ -31,7 +31,7 @@ class StatsResource(Resource):
         for day in date_list:
             day = day.date()
             logger.debug(f"Looking for day: {day}")
-            res = [item for item in database_in_data if item['day'] == str(day)]
+            res = [item for item in database_in_data if item['day'].strftime('%Y-%m-%d') == str(day)]
             logger.debug(f"Res item: {res}")
             if res is not None:
                 # Get object data
