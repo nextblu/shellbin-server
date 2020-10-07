@@ -11,7 +11,10 @@ from flask import Flask
 from flask_restful import Api
 
 from resources.BinResources import BinResource
+from resources.BinV2Resource import BinV2Resource
 from tentalog import Tentacle
+
+from resources.StatsResource import StatsResource
 
 logger = Tentacle().logger
 
@@ -31,13 +34,19 @@ def after_request(response):
     return response
 
 
-# @todo: Move me to routes_configuration.py
+# Legacy version
 log_routes = [
     "/api/v1/bin/<string:slug>",
     "/api/v1/bin/new"
 ]
 
 api.add_resource(BinResource, *log_routes)
+
+# Bin v2
+api.add_resource(BinV2Resource, "/api/v2/bin/")
+
+# Statistics
+api.add_resource(StatsResource, "/api/vs/stats/")
 
 if __name__ == '__main__':
     isProduction = False
