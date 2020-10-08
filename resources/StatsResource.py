@@ -25,7 +25,9 @@ class StatsResource(Resource):
             days = 30
         else:
             days = int(days)
-        if not order or ((order != 'ASC') and (order != 'DESC')):
+        if not order:
+            order = 'ASC'
+        if order != 'ASC' and order != 'DESC':
             order = 'ASC'
         # Getting the last x Days of stats
         database_in_data = Stats().get_bin_per_day(interval=days, order=order)
