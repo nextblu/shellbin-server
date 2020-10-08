@@ -51,6 +51,9 @@ class StatsResource(Resource):
                     "bins": 0
                 })
 
+        # Cleaning the statsPerDay list
+        list_of_bin = list_of_bin.reverse()
+        list_of_bin = list_of_bin[:30]
         return {
                    "success": True,
                    "latestBin": latest_bin,
