@@ -1,8 +1,7 @@
-from modules.database import Database
-from modules import datetimeutil
 from tentalog import Tentacle
 
-import sys
+from modules import datetimeutil
+from modules.database import Database
 
 logger = Tentacle().logger
 
@@ -11,7 +10,11 @@ class Stats:
     def __init__(self):
         self.__db = Database()
 
-    def get_bin_per_day(self):
+    def get_bin_per_day(self, interval=30, order='ASC'):
+        """
+        Getting a list of bin per day on a specific interval
+        :return: List of bin with count and date
+        """
         # Getting the list of the number of bin creations in the last 60 days
         cursor = self.__db.get_cursor()
         logger.debug(f"Retrieving bin number per day")
@@ -22,12 +25,13 @@ class Stats:
                         from
                             `bin`
                         where
-                            created >= date_sub(curdate(), interval 60 day)
+                            created >= date_sub(curdate(), interval %s day)
                         group by 
                             date
+                        order by `date` %s
 
                         """
-        cursor.execute(query)
+        cursor.execute(query, (interval, order,))
         result = list(cursor.fetchall())
         insertions_list = []
         if len(result) >= 1:

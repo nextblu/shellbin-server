@@ -7,6 +7,7 @@
 #   """
 import datetime
 
+from flask import request
 from flask_restful import Resource
 from tentalog import Tentacle
 
@@ -18,15 +19,21 @@ logger = Tentacle().logger
 
 class StatsResource(Resource):
     def get(self):
-        # Getting the last 60 days
-        database_in_data = Stats().get_bin_per_day()
+        order = request.args.get('order')
+        days = request.args.get('user')
+        if not days or (not isinstance(days, int)) or (days not in range(1, 120)):
+            days = 30
+        if not order or ((order != 'ASC') and (order != 'DESC')):
+            order = 'ASC'
+        # Getting the last x Days of stats
+        database_in_data = Stats().get_bin_per_day(interval=days, order=order)
         latest_bin = Stats().get_last_bin_timestamp()
 
-        logger.debug(f"Database data for the last 60 days: {database_in_data}")
+        logger.debug(f"Database data for the last {days} days: {database_in_data}")
 
         # Cleaning days_data
         base = datetime.datetime.today()
-        date_list = [base - datetime.timedelta(days=x) for x in range(60)]
+        date_list = [base - datetime.timedelta(days=x) for x in range(int(days))]
         list_of_bin = []
         for day in date_list:
             day = day.date()
@@ -51,9 +58,6 @@ class StatsResource(Resource):
                     "bins": 0
                 })
 
-        # Cleaning the statsPerDay list
-        list_of_bin = list_of_bin.reverse()
-        list_of_bin = list_of_bin[:30]
         return {
                    "success": True,
                    "latestBin": latest_bin,
