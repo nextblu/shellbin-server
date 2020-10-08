@@ -20,6 +20,7 @@ logger = Tentacle().logger
 class StatsResource(Resource):
     def get(self):
         order = request.args.get('order')
+        logger.debug(f"Order value from request: {order}")
         days = request.args.get('limit')
         if not days or (int(days) not in range(1, 120)):
             days = 30
@@ -27,7 +28,7 @@ class StatsResource(Resource):
             days = int(days)
         if not order:
             order = 'ASC'
-        if order != 'ASC' and order != 'DESC':
+        if order not in ('ASC', 'DESC'):
             order = 'ASC'
         # Getting the last x Days of stats
         database_in_data = Stats().get_bin_per_day(interval=days, order=order)

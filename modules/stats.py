@@ -10,7 +10,7 @@ class Stats:
     def __init__(self):
         self.__db = Database()
 
-    def get_bin_per_day(self, interval=30, order='DESC'):
+    def get_bin_per_day(self, order, interval=30):
         """
         Getting a list of bin per day on a specific interval
         :return: List of bin with count and date
