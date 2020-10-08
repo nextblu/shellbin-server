@@ -29,13 +29,15 @@ class Stats:
                             created >= date_sub(curdate(), interval %s day)
                         group by 
                             date
-                        order by `date` %s
+                        order by `date` ASC
 
                         """
-        cursor.execute(query, (interval, order,))
+        cursor.execute(query, (interval,))
         result = list(cursor.fetchall())
         insertions_list = []
         if len(result) >= 1:
+            if order == 'DESC':
+                result = result.reverse()
             logger.debug(f"Found {len(result)} Bins in time range")
             for data in result:
                 log_data = {
