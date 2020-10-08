@@ -17,6 +17,7 @@ class Stats:
         """
         # Getting the list of the number of bin creations in the last 60 days
         cursor = self.__db.get_cursor()
+        logger.info(f"Getting stats for the latest {interval} days with {order} order")
         logger.debug(f"Retrieving bin number per day")
         query = """
                         select
