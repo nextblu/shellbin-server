@@ -37,6 +37,7 @@ class Stats:
         insertions_list = []
         if len(result) >= 1:
             if order == 'DESC':
+                logger.debug("Reversing the stats list")
                 result = result[::-1]
             logger.debug(f"Found {len(result)} Bins in time range")
             for data in result:
