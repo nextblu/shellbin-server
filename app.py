@@ -12,6 +12,7 @@ from flask_restful import Api
 
 from resources.BinResources import BinResource
 from resources.BinV2Resource import BinV2Resource
+from resources.BinLikesResource import BinLikesResource
 from tentalog import Tentacle
 
 from resources.StatsResource import StatsResource
@@ -47,6 +48,8 @@ api.add_resource(BinV2Resource, "/api/v2/bin/")
 
 # Statistics
 api.add_resource(StatsResource, "/api/vs/stats/")
+
+api.add_resource(BinLikesResource, "/api/v2/bin/new/like/")
 
 if __name__ == '__main__':
     isProduction = False

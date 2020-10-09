@@ -1,7 +1,7 @@
 class DatabaseConfig:
-    HOST = "srv-captain--shellbin-store-db"
+    HOST = "localhost"
     USER = "root"
-    PASSWORD = "root"
+    PASSWORD = "kira2008"
     DB_NAME = "shellbin"
 
 
