@@ -7,6 +7,7 @@
 #   """
 import datetime
 
+from flask import request
 from flask_restful import Resource
 from tentalog import Tentacle
 
@@ -18,21 +19,32 @@ logger = Tentacle().logger
 
 class StatsResource(Resource):
     def get(self):
-        # Getting the last 60 days
-        database_in_data = Stats().get_bin_per_day()
+        order = request.args.get('order')
+        logger.debug(f"Order value from request: {order}")
+        days = request.args.get('limit')
+        if not days or (int(days) not in range(1, 120)):
+            days = 30
+        else:
+            days = int(days)
+        if not order:
+            order = 'ASC'
+        if order not in ('ASC', 'DESC'):
+            order = 'ASC'
+        # Getting the last x Days of stats
+        database_in_data = Stats().get_bin_per_day(interval=days, order=order)
         latest_bin = Stats().get_last_bin_timestamp()
 
-        logger.debug(f"Database data for the last 60 days: {database_in_data}")
+        logger.debug(f"Database data for the last {days} days: {database_in_data}")
 
         # Cleaning days_data
         base = datetime.datetime.today()
-        date_list = [base - datetime.timedelta(days=x) for x in range(60)]
+        date_list = [base - datetime.timedelta(days=x) for x in range(int(days))]
         list_of_bin = []
         for day in date_list:
             day = day.date()
-            logger.debug(f"Looking for day: {day}")
+            # logger.debug(f"Looking for day: {day}")
             res = [item for item in database_in_data if item['day'].strftime('%Y-%m-%d') == str(day)]
-            logger.debug(f"Res item: {res}")
+            # logger.debug(f"Res item: {res}")
             if res is not None:
                 # Get object data
                 try:
