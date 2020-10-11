@@ -27,7 +27,7 @@ share/python-wheels/
 MANIFEST
 
 # Logs
-logs
+logs/
 logs/*.log
 logs/*.log.*
 
