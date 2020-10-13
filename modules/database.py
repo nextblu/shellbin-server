@@ -1,11 +1,11 @@
 # using mysqlclient requires the mysql-connector-c C library to work.
 import MySQLdb
-
-from config import DatabaseConfig
 from tentalog import Tentacle
 
+from config import DatabaseConfig
 
 logger = Tentacle().logger
+
 
 # @todo: Integrate the context manager and the pool of connections
 
