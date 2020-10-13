@@ -1,8 +1,11 @@
+import os
+
+
 class DatabaseConfig:
-    HOST = "localhost"
-    USER = "root"
-    PASSWORD = "kira2008"
-    DB_NAME = "shellbin"
+    HOST = os.getenv("SHELLBIN_DATABASE_HOST", "localhost")
+    USER = os.getenv("SHELLBIN_DATABASE_USER", "root")
+    PASSWORD = os.getenv("SHELLBIN_DATABASE_PASSWORD", "root")
+    DB_NAME = os.getenv("SHELLBIN_DATABASE_NAME", "shellbin")
 
 
 class TimeConfig:
