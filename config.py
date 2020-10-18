@@ -1,3 +1,6 @@
+import os
+
+
 class DatabaseConfig:
     HOST = os.getenv("SHELLBIN_DATABASE_HOST", "srv-captain--shellbin-store-db")
     USER = os.getenv("SHELLBIN_DATABASE_USER", "root")
