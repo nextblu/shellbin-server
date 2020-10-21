@@ -10,13 +10,13 @@ class BinLikes:
 
     def get_bin_likes(self, url):
         cursor = self.__db.get_cursor()
-        logger.debug(f"Retrieving likes for url")
-        query = "SELECT * FROM binLikes WHERE slug = %s"
+        logger.debug(f"Retrieving likes for url {url}")
+        query = "SELECT total_likes FROM binLikes WHERE slug = %s"
         cursor.execute(query, (url,))
         result = list(cursor.fetchall())
         total_likes = 0
         if result:
-            total_likes = result[0][2]
+            total_likes = result[0][0]
         else:
             query = "INSERT INTO binLikes (slug, total_likes) VALUES(%s, 0)"
             cursor.execute(query, (url,))
@@ -28,7 +28,7 @@ class BinLikes:
     def increment_bin_likes(self, url):
         cursor = self.__db.get_cursor()
         logger.debug(f"Incrementing likes for url")
-        query = "SELECT * FROM binLikes WHERE slug = %s"
+        query = "SELECT total_likes FROM binLikes WHERE slug = %s"
         cursor.execute(query, (url,))
         result = list(cursor.fetchall())
 
@@ -39,10 +39,10 @@ class BinLikes:
             query = "INSERT INTO binLikes (slug, total_likes) VALUES(%s, 1)"
             cursor.execute(query, (url,))
 
-        query = "SELECT * FROM binLikes WHERE slug = %s"
+        query = "SELECT total_likes FROM binLikes WHERE slug = %s"
         cursor.execute(query, (url,))
         result = list(cursor.fetchall())
 
         cursor.close()
         self.__db.done()
-        return result[0][2]
+        return result[0][0]

@@ -31,3 +31,8 @@ class RequestSchema:
             required=True, validate=validate.Regexp("([0-9a-zA-Z .@_-]){2,60}")
         )
     }
+    BinViews = {
+        "slug": fields.Str(
+            required=True, validate=validate.Regexp("([0-9a-zA-Z .@_-]){2,60}")
+        )
+    }
